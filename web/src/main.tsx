@@ -1,8 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
-import { ThemeProvider } from './components/theme-provider.tsx'
+import App from '@/App.tsx'
+import '@/index.css'
+import { ThemeProvider } from '@/components/theme-provider.tsx'
+import { HashRouter } from 'react-router-dom'
 
 const root = document.getElementById('root')!
 
@@ -16,7 +17,9 @@ root.className = 'h-screen w-screen'
 ReactDOM.createRoot(root).render(
   <React.StrictMode>
     <ThemeProvider>
-      <App />
+      <HashRouter>
+        <App />
+      </HashRouter>
     </ThemeProvider>
   </React.StrictMode>,
 )

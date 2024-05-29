@@ -1,8 +1,20 @@
+import { CardItem } from "@/components/card-item"
+import { AppLayout } from "@/components/layouts/app-layout"
+
 function App() {
   return (
-    <>
-      App
-    </>
+    <AppLayout>
+      <CardItem />
+      <CardItem />
+      <CardItem />
+      <CardItem />
+      <CardItem />
+      <CardItem />
+      <CardItem />
+      <CardItem />
+      <CardItem />
+      <CardItem />
+    </AppLayout>
   )
 }
 
