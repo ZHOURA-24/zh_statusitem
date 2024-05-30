@@ -10,6 +10,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { getImagePath } from '@/utils/getImagePath';
 
 export const ItemSelect = ({
     data,
@@ -87,7 +88,7 @@ export const ItemSelect = ({
             <div className="grid grid-cols-4 gap-2">
                 {data.items?.map(item => (
                     <div key={item.name} className="flex items-center justify-center p-2">
-                        <img src={`./images/${item.name}.png`} alt={item.name} />
+                        <img src={getImagePath(item.name)} alt={item.name} />
                         <p className="text-xs">{item.count * count}x</p>
                     </div>
                 ))}

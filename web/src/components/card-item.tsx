@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils"
+import { getImagePath } from "@/utils/getImagePath"
 
 export type ItemProps = {
     name: string
@@ -19,7 +20,7 @@ export const CardItem = ({
             onClick={onClick}
         >
             <img
-                src={`./images/${data.name}.png`}
+                src={getImagePath(data.name)}
                 alt={data.name}
                 className="w-[70px] h-[70px] z-10 bg-repeat bg-center object-contain self-center hover:scale-110 duration-300 bg-contain"
             />

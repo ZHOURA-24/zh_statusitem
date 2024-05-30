@@ -6,6 +6,7 @@ import { useNuiEvent } from "@/hooks/useNuiEvent"
 import { debugData } from "@/utils/debugData"
 import { ItemSelectLayout } from "./components/layouts/item-select-layout"
 import { ItemSelect } from "./components/item-select"
+import { Visible } from "./visible"
 
 function App() {
   const [items, setItems] = useState<ItemProps[]>([])
@@ -15,27 +16,29 @@ function App() {
   useNuiEvent("setItems", setItems)
 
   return (
-    <main className="relative top-10 left-20 flex gap-x-10 w-fit h-fit">
-      <ItemLayout>
-        {items.filter((item) => item.label.toLowerCase().includes(seach.get("q")?.toLowerCase() || '')).map((item) =>
-          <CardItem
-            key={item.name}
-            data={item}
-            selected={selectedItems.some(selected => selected.name === item.name)}
-            onClick={() => !selectedItems.some(selected => selected.name === item.name) && setSelectedItems([...selectedItems, { ...item, count: 1 }])} />
-        )}
-      </ItemLayout>
-      {selectedItems.length > 0 && <ItemSelectLayout>
-        {selectedItems.map((item) =>
-          <ItemSelect
-            key={item.name}
-            data={item}
-            selectedItems={selectedItems}
-            setSelectedItems={setSelectedItems}
-          />
-        )}
-      </ItemSelectLayout>}
-    </main>
+    <Visible>
+      <main className="relative top-10 left-20 flex gap-x-10 w-fit h-fit">
+        <ItemLayout>
+          {items.filter((item) => item.label.toLowerCase().includes(seach.get("q")?.toLowerCase() || '')).map((item) =>
+            <CardItem
+              key={item.name}
+              data={item}
+              selected={selectedItems.some(selected => selected.name === item.name)}
+              onClick={() => !selectedItems.some(selected => selected.name === item.name) && setSelectedItems([...selectedItems, { ...item, count: 1 }])} />
+          )}
+        </ItemLayout>
+        {selectedItems.length > 0 && <ItemSelectLayout>
+          {selectedItems.map((item) =>
+            <ItemSelect
+              key={item.name}
+              data={item}
+              selectedItems={selectedItems}
+              setSelectedItems={setSelectedItems}
+            />
+          )}
+        </ItemSelectLayout>}
+      </main>
+    </Visible>
   )
 }
 
