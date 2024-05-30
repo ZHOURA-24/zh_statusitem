@@ -7,35 +7,46 @@ import { debugData } from "@/utils/debugData"
 import { ItemSelectLayout } from "./components/layouts/item-select-layout"
 import { ItemSelect } from "./components/item-select"
 import { Visible } from "./visible"
+import { fetchNui } from "./utils/fetchNui"
+import { isEnvBrowser } from "./utils/misc"
 
 function App() {
   const [items, setItems] = useState<ItemProps[]>([])
-  const [selectedItems, setSelectedItems] = useState<ItemProps[]>([])
+  const [selectedItem, setSelectedItem] = useState<ItemProps | null>(null)
   const [seach] = useSearchParams()
 
   useNuiEvent("setItems", setItems)
 
+  useNuiEvent("updateSelectedItem", (data: ItemProps) => {
+    if (data.count === 0) return setSelectedItem(null);
+    setSelectedItem(data)
+  })
+
   return (
     <Visible>
       <main className="relative top-10 left-20 flex gap-x-10 w-fit h-fit">
-        <ItemLayout>
-          {items.filter((item) => item.label.toLowerCase().includes(seach.get("q")?.toLowerCase() || '')).map((item) =>
-            <CardItem
-              key={item.name}
-              data={item}
-              selected={selectedItems.some(selected => selected.name === item.name)}
-              onClick={() => !selectedItems.some(selected => selected.name === item.name) && setSelectedItems([...selectedItems, { ...item, count: 1 }])} />
-          )}
-        </ItemLayout>
-        {selectedItems.length > 0 && <ItemSelectLayout>
-          {selectedItems.map((item) =>
-            <ItemSelect
-              key={item.name}
-              data={item}
-              selectedItems={selectedItems}
-              setSelectedItems={setSelectedItems}
-            />
-          )}
+        <div className="flex flex-col gap-y-2">
+          <ItemLayout>
+            {items.filter((item) => item.label.toLowerCase().includes(seach.get("q")?.toLowerCase() || '')).map((item) =>
+              <CardItem
+                key={item.name}
+                data={item}
+                selected={selectedItem?.name === item.name}
+                onClick={() => {
+                  fetchNui("canCraft", item).then((data) => {
+                    if (data) setSelectedItem({ ...item, count: 1 })
+                  })
+                  if (isEnvBrowser()) setSelectedItem({ ...item, count: 1 })
+                }} />
+            )}
+          </ItemLayout>
+        </div>
+        {selectedItem && <ItemSelectLayout>
+          <ItemSelect
+            key={selectedItem.name}
+            data={selectedItem}
+            setSelectedItem={setSelectedItem}
+          />
         </ItemSelectLayout>}
       </main>
     </Visible>
@@ -51,7 +62,7 @@ debugData([
     data: [
       {
         name: "burger",
-        label: "Burger",
+        label: "Burger asd asdas dasd asd asdasd asdasdasd",
         items: [
           {
             name: "burger",
