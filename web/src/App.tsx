@@ -7,8 +7,6 @@ import { debugData } from "@/utils/debugData"
 import { ItemSelectLayout } from "./components/layouts/item-select-layout"
 import { ItemSelect } from "./components/item-select"
 import { Visible } from "./visible"
-import { fetchNui } from "./utils/fetchNui"
-import { isEnvBrowser } from "./utils/misc"
 
 function App() {
   const [items, setItems] = useState<ItemProps[]>([])
@@ -32,12 +30,7 @@ function App() {
                 key={item.name}
                 data={item}
                 selected={selectedItem?.name === item.name}
-                onClick={() => {
-                  fetchNui("canCraft", item).then((data) => {
-                    if (data) setSelectedItem({ ...item, count: 1 })
-                  })
-                  if (isEnvBrowser()) setSelectedItem({ ...item, count: 1 })
-                }} />
+                onClick={() => setSelectedItem({ ...item, count: 0 })} />
             )}
           </ItemLayout>
         </div>

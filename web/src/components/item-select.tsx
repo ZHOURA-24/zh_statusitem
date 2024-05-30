@@ -73,7 +73,7 @@ export const ItemSelect = ({
                             >
                                 Remove
                             </DropdownMenuItem>
-                            <DropdownMenuItem onClick={() => fetchNui("startCraft", data)}>Start</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => data.count > 0 && fetchNui("startCraft", data)}>Start</DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </div>
