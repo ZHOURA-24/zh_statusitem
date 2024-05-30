@@ -1,16 +1,22 @@
 local items = require "data.items"
+local config = require "data.config"
+
 local busy = false
 
 AddEventHandler('onResourceStart', function(resource)
     if resource == GetCurrentResourceName() then
         Wait(1000)
         local statusItems = {}
-        for i = 1, #items, 1 do
-            table.insert(statusItems, {
-                label = items[i].label,
-                name = items[i].name,
-                items = items[i].items
-            })
+        for _, v in pairs(items) do
+            table.insert(statusItems,
+                {
+                    label = v.label,
+                    name = v.name,
+                    image = v.image,
+                    description = v.description,
+                    items = v.items
+                }
+            )
         end
         SendNUIMessage({
             action = "setItems",
@@ -33,6 +39,7 @@ RegisterNUICallback('startCraft', function(data, cb)
         return Notify('Error', 'Not enough items', 'error')
     end
     busy = true
+    ToggleFrame(false)
     for _ = 1, data.count, 1 do
         if lib.progressCircle({
                 duration = 5000,
@@ -57,7 +64,7 @@ RegisterNUICallback('startCraft', function(data, cb)
                     bone = 28422
                 },
             }) then
-            local result, message = lib.callback.await('zh_statusitem:server:Craft', false, data)
+            local result, message = lib.callback.await('zh_statusitem:server:Craft', false, data.name)
             if not result then
                 Notify('Error', message, 'error')
                 busy = false
@@ -81,4 +88,24 @@ end)
 
 RegisterNUICallback('canCraft', function(data, cb)
     cb(CheckItems(data.items, data.count or 1))
+end)
+
+exports(config.item, function(data, slot)
+    local metadata = slot.metadata
+    local item = items[metadata.name]
+    if not item then
+        return
+    end
+    if lib.progressCircle(item.progress) then
+        exports.ox_inventory:useItem(data, function(result)
+            if result then
+                for k, v in pairs(item.status) do
+                    config.setStatus(k, v)
+                end
+                Notify('Success', 'Used ' .. item.label, 'success')
+            end
+        end)
+    else
+        Notify('Error', 'Cancelled...', 'error')
+    end
 end)
