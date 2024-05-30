@@ -21,17 +21,20 @@ function App() {
           <CardItem
             key={item.name}
             data={item}
+            selected={selectedItems.some(selected => selected.name === item.name)}
             onClick={() => !selectedItems.some(selected => selected.name === item.name) && setSelectedItems([...selectedItems, { ...item, count: 1 }])} />
         )}
       </ItemLayout>
-      <ItemSelectLayout>
+      {selectedItems.length > 0 && <ItemSelectLayout>
         {selectedItems.map((item) =>
           <ItemSelect
             key={item.name}
             data={item}
+            selectedItems={selectedItems}
+            setSelectedItems={setSelectedItems}
           />
         )}
-      </ItemSelectLayout>
+      </ItemSelectLayout>}
     </main>
   )
 }
@@ -45,35 +48,179 @@ debugData([
     data: [
       {
         name: "burger",
-        label: "Burger Test Test Test"
+        label: "Burger",
+        items: [
+          {
+            name: "burger",
+            count: 1
+          },
+          {
+            name: "milkteaboba",
+            count: 2
+          },
+          {
+            name: "cocktail",
+            count: 3
+          },
+          {
+            name: "lemonade",
+            count: 4
+          },
+        ]
       },
       {
         name: "cocktail",
-        label: "Cocktail"
+        label: "Cocktail",
+        items: [
+          {
+            name: "burger",
+            count: 1
+          },
+          {
+            name: "milkteaboba",
+            count: 2
+          },
+          {
+            name: "cocktail",
+            count: 3
+          },
+          {
+            name: "lemonade",
+            count: 4
+          },
+        ]
       },
       {
         name: "lemonade",
-        label: "Lemonade"
+        label: "Lemonade",
+        items: [
+          {
+            name: "burger",
+            count: 1
+          },
+          {
+            name: "milkteaboba",
+            count: 2
+          },
+          {
+            name: "cocktail",
+            count: 3
+          },
+          {
+            name: "lemonade",
+            count: 4
+          },
+        ]
       },
       {
         name: "milkteaboba",
-        label: "Milk Tea Boba"
+        label: "Milk Tea Boba",
+        items: [
+          {
+            name: "burger",
+            count: 1
+          },
+          {
+            name: "milkteaboba",
+            count: 2
+          },
+          {
+            name: "cocktail",
+            count: 3
+          },
+          {
+            name: "lemonade",
+            count: 4
+          },
+        ]
       },
       {
         name: "pasta",
-        label: "Pasta"
+        label: "Pasta",
+        items: [
+          {
+            name: "burger",
+            count: 1
+          },
+          {
+            name: "milkteaboba",
+            count: 2
+          },
+          {
+            name: "cocktail",
+            count: 3
+          },
+          {
+            name: "lemonade",
+            count: 4
+          },
+        ]
       },
       {
         name: "ramen",
-        label: "Ramen"
+        label: "Ramen",
+        items: [
+          {
+            name: "burger",
+            count: 1
+          },
+          {
+            name: "milkteaboba",
+            count: 2
+          },
+          {
+            name: "cocktail",
+            count: 3
+          },
+          {
+            name: "lemonade",
+            count: 4
+          },
+        ]
       },
       {
         name: "sushi",
-        label: "Sushi"
+        label: "Sushi",
+        items: [
+          {
+            name: "burger",
+            count: 1
+          },
+          {
+            name: "milkteaboba",
+            count: 2
+          },
+          {
+            name: "cocktail",
+            count: 3
+          },
+          {
+            name: "lemonade",
+            count: 4
+          },
+        ]
       },
       {
         name: "wine",
-        label: "Wine"
+        label: "Wine",
+        items: [
+          {
+            name: "burger",
+            count: 1
+          },
+          {
+            name: "milkteaboba",
+            count: 2
+          },
+          {
+            name: "cocktail",
+            count: 3
+          },
+          {
+            name: "lemonade",
+            count: 4
+          },
+        ]
       },
     ],
   },

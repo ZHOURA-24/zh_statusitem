@@ -1,16 +1,20 @@
+import { cn } from "@/lib/utils"
+
 export type ItemProps = {
     name: string
     label: string
-    count?: number
+    count: number
+    items?: ItemProps[]
 }
 
 export const CardItem = ({
     data,
+    selected,
     onClick
-}: { data: ItemProps, onClick?: () => void }) => {
+}: { data: ItemProps, selected: boolean, onClick?: () => void }) => {
     return (
         <div
-            className="relative h-[100px] flex flex-col items-center justify-between hover:cursor-pointer"
+            className={cn("relative h-[100px] flex flex-col items-center justify-between hover:cursor-pointer duration-300", selected ? "border rounded scale-90" : "")}
             role="button"
             onClick={onClick}
         >
