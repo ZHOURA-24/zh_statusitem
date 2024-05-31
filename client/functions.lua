@@ -1,3 +1,6 @@
+---@param title string
+---@param description string
+---@param type string
 function Notify(title, description, type)
     lib.notify({
         title = title,
@@ -6,6 +9,7 @@ function Notify(title, description, type)
     })
 end
 
+---@param show boolean
 function ToggleFrame(show)
     local visible = not IsNuiFocused() or show
     SendNUIMessage({
@@ -15,6 +19,8 @@ function ToggleFrame(show)
     SetNuiFocus(visible, visible)
 end
 
+---@param items table
+---@param count number
 function CheckItems(items, count)
     for i = 1, #items, 1 do
         local item = items[i]

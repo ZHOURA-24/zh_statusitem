@@ -1,7 +1,10 @@
 local tables = require "data.tables"
+local items = require "data.items"
 local tableObjects = {}
-local models = {}
 
+---@param model string
+---@param coords vector4
+---@return integer
 local function SpawnTable(model, coords)
     lib.requestModel(model)
     local entity = CreateObject(GetHashKey(model), coords.x, coords.y, coords.z, false, false, false)
@@ -27,18 +30,37 @@ for i = 1, #tables, 1 do
     local tableData = tables[i]
     local entity = SpawnTable(tableData.model, tableData.coords)
     table.insert(tableObjects, entity)
-    table.insert(models, tableData.model)
+    exports.ox_target:addLocalEntity(entity, {
+        {
+            label = "Open table",
+            icon = "fa-solid fa-table",
+            groups = tableData.groups,
+            onSelect = function()
+                ToggleFrame(true)
+                local statusItems = {}
+                for _, v in pairs(items) do
+                    if tableData.category == "all" or tableData.category == v.category then
+                        table.insert(statusItems,
+                            {
+                                label = v.label,
+                                name = v.name,
+                                image = v.image,
+                                description = v.description,
+                                items = v.items
+                            }
+                        )
+                    end
+                end
+                SendNUIMessage({
+                    action = "setItems",
+                    data = statusItems
+                })
+            end
+        }
+    })
 end
 
 AddEventHandler('onResourceStop', function(resourceName)
     if (GetCurrentResourceName() ~= resourceName) then return end
     DeleteAllObjects()
 end)
-
-exports.ox_target:addModel(models, {
-    {
-        label = "Open table",
-        icon = "fa-solid fa-table",
-        onSelect = ToggleFrame
-    }
-})

@@ -4,6 +4,7 @@ return {
         name = 'burger',
         description = 'Hamburger with cheese and lettuce',
         status = { hunger = 10 },
+        category = 'food',
         progress = {
             duration = 5000,
             position = 'bottom',
@@ -31,6 +32,7 @@ return {
         name = 'pasta',
         description = 'Pasta with cheese and sauce',
         status = { hunger = 10 },
+        category = 'food',
         progress = {
             duration = 5000,
             position = 'bottom',
@@ -58,6 +60,7 @@ return {
         name = 'sushi',
         description = 'Sushi with rice',
         status = { hunger = 10 },
+        category = 'food',
         progress = {
             duration = 5000,
             position = 'bottom',
@@ -85,6 +88,7 @@ return {
         name = 'ramen',
         description = 'Ramen with vegetables',
         status = { hunger = 10 },
+        category = 'food',
         progress = {
             duration = 5000,
             position = 'bottom',
@@ -112,6 +116,7 @@ return {
         name = 'cocktail',
         description = 'Cocktail with gin and lime juice',
         status = { thirst = 10 },
+        category = 'drink',
         progress = {
             duration = 5000,
             position = 'bottom',
@@ -139,6 +144,7 @@ return {
         name = 'lemonade',
         description = 'Lemonade with sugar and water',
         status = { thirst = 10 },
+        category = 'drink',
         progress = {
             duration = 5000,
             position = 'bottom',
@@ -166,6 +172,7 @@ return {
         name = 'milkteaboba',
         description = 'Milk Tea Boba with milk and ice cubes',
         status = { thirst = 10 },
+        category = 'drink',
         progress = {
             duration = 5000,
             position = 'bottom',
@@ -193,6 +200,7 @@ return {
         name = 'wine',
         description = 'Wine with red and white wine',
         status = { thirst = 10 },
+        category = 'drink',
         progress = {
             duration = 5000,
             position = 'bottom',

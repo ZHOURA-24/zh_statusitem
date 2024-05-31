@@ -3,28 +3,6 @@ local config = require "data.config"
 
 local busy = false
 
-AddEventHandler('onResourceStart', function(resource)
-    if resource == GetCurrentResourceName() then
-        Wait(1000)
-        local statusItems = {}
-        for _, v in pairs(items) do
-            table.insert(statusItems,
-                {
-                    label = v.label,
-                    name = v.name,
-                    image = v.image,
-                    description = v.description,
-                    items = v.items
-                }
-            )
-        end
-        SendNUIMessage({
-            action = "setItems",
-            data = statusItems
-        })
-    end
-end)
-
 RegisterNUICallback('hideFrame', function(data, cb)
     ToggleFrame(false)
     cb({})
